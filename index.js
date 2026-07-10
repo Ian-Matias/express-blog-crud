@@ -23,7 +23,7 @@ const directory = path.join("./views/blogs"); // Folder where blog .ejs files ar
 var blogList = [];
 
 
-// ===============================
+
 // MIDDLEWARE
 // ===============================
 
@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 
-// ===============================
+
 // HOME PAGE — LIST ALL BLOG FILES
 // ===============================
 app.get('/', (req, res) => {
@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 });
 
 
-// ===============================
+
 // RENDER BLOG CREATION PAGE
 // ===============================
 app.get("/create", (req, res) => {
@@ -69,26 +69,36 @@ app.get("/create", (req, res) => {
 });
 
 
-// ===============================
+
 // RENDER A SPECIFIC BLOG PAGE
 // ===============================
 app.get("/blogs/:title", (req, res) => {
   const title = req.params.title;
-
-  // Render the blog file inside /views/blogs
   res.render(`blogs/${title}`, { title });
 });
 
 
 app.get("/blogs/:title/confirm-delete", (req, res) => {
-  const title = req.params.title;
-  res.render("confirm-delete", { title });
+  const requestedTitle = req.params.title;
+  const filePath = path.join(directory, `${requestedTitle}.ejs`);
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(404).send("Blog not found");
+    }
+
+    // Extract the REAL current title from the <h2>
+    const actualTitle = data.match(/<h2[^>]*>([\s\S]*?)<\/h2>/)[1];
+
+    // Render confirmation page with the real title
+    res.render("confirm-delete", { title: actualTitle });
+  });
 });
 
 
-// ===============================
+
+
 // CREATE A NEW BLOG FILE
-// ===============================
 app.post('/submit', (req, res) => {
   // Extract form fields
   title = req.body.title;
@@ -119,7 +129,7 @@ app.post('/submit', (req, res) => {
 </form>
 
 <!-- Delete button for this blog -->
-<form action="/blogs/${title}/confirm-delete" method="GET">
+<form action="/blogs/${title}?_method=DELETE" method="POST">
   <button type="submit" style="margin-top: 10px; color: red;">
     Delete Blog
   </button>
@@ -149,58 +159,68 @@ app.post('/submit', (req, res) => {
 });
 
 
-// ===============================
-// UPDATE BLOG TITLE + CONTENT (PATCH)
-// ===============================
+
+// UPDATE BLOG TITLE + CONTENT (PATCH)  
 app.patch("/blogs/:title", (req, res) => {
-  const oldTitle = req.params.title;     // Current filename
-  const newTitle = req.body.title;       // Updated <h2> text
-  const newBlogText = req.body.blog;     // Updated <p> text
+  const oldTitle = req.params.title;  
+  const newTitle = req.body.title;
+  const newBlogText = req.body.blog;
 
   const oldFilePath = path.join(directory, `${oldTitle}.ejs`);
   const newFilePath = path.join(directory, `${newTitle}.ejs`);
 
-  // Read existing blog file
   fs.readFile(oldFilePath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(404).send("Blog not found");
-    }
+    if (err) return res.status(404).send("Blog not found");
 
-    // Replace <h2> content
     let updatedContent = data.replace(
+      /<title>([\s\S]*?)<\/title>/,
+      `<title>${newTitle}</title>`
+    );
+
+    updatedContent = updatedContent.replace(
       /<h2[^>]*>([\s\S]*?)<\/h2>/,
       `<h2 class="pb-2 border-bottom" id="h2-blog">${newTitle}</h2>`
     );
 
-    // Replace <p> content
     updatedContent = updatedContent.replace(
       /<p>([\s\S]*?)<\/p>/,
       `<p>${newBlogText}</p>`
     );
 
-    // Determine final file path (rename if title changed)
+    updatedContent = updatedContent.replace(
+      /<input type="hidden" name="title" value="([^"]*)">/,
+      `<input type="hidden" name="title" value="${newTitle}">`
+    );
+
+    updatedContent = updatedContent.replace(
+      /action="\/blogs\/([^"]*)\/confirm-delete"/,
+      `action="/blogs/${newTitle}/confirm-delete"`
+    );
+
+    updatedContent = updatedContent.replace(
+      /action="\/blogs\/([^"]*)\?_method=DELETE"/,
+      `action="/blogs/${newTitle}?_method=DELETE"`
+    );
+
     const finalPath = newTitle !== oldTitle ? newFilePath : oldFilePath;
 
-    // Save updated content
     fs.writeFile(finalPath, updatedContent, (err) => {
-      if (err) {
-        return res.status(500).send("Error updating blog");
-      }
+      if (err) return res.status(500).send("Error updating blog");
 
-      // Delete old file if renamed
       if (newTitle !== oldTitle) {
         fs.unlink(oldFilePath, () => {});
       }
 
-      res.send("Blog updated successfully");
+      return res.redirect("/");
     });
   });
 });
 
 
-// ===============================
+
+
+
 // LOAD BLOG INTO EDIT FORM
-// ===============================
 app.get("/edit", (req, res) => {
   const title = req.query.title;
   const filePath = path.join(directory, `${title}.ejs`);
@@ -237,9 +257,7 @@ app.delete("/blogs/:title", (req, res) => {
 });
 
 
-// ===============================
-// START SERVER
-// ===============================
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
