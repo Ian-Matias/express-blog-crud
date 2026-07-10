@@ -1,0 +1,17 @@
+<%- include("partials/header.ejs") %>
+
+
+<h1>Delete Blog: <%= title %></h1>
+
+<p>Are you sure you want to permanently delete this blog?</p>
+
+<form action="/blogs/<%= title %>?_method=DELETE" method="POST">
+  <button type="submit" style="color: red;">Yes, delete</button>
+</form>
+
+<form action="/blogs/<%= title %>" method="GET">
+  <button type="submit">Cancel</button>
+</form>
+
+
+  <%- include("partials/footer.ejs") %>

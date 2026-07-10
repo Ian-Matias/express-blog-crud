@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Welcome Friends!</h1>
+
+ <div class="container px-4 py-5" id="featured-3">
+  <h2 class="pb-2 border-bottom" id="h2-blog">Blog Posts</h2>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-5 ">
+      <ul>
+  <% blogNames.forEach(name => { %>
+    <li>
+      <a href="/blogs/<%= name %>"><%= name %></a>
+    </li>
+  <% }) %>
+  </ul>
+    </div>
+  </div>
+  
+
+  <%- include("partials/footer.ejs") %>
+
+ 

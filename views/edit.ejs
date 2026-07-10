@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+
+
+
+
+<form action="/blogs/<%= title %>?_method=PATCH" method="POST">
+  
+  <div class="alert alert-danger" role="alert">
+  <h4 class="alert-heading">Warning!</h4>
+  <p>This will permanently update the blog text.</p>
+  </div>
+
+  <input name="title" type="text" class="feedback-input" placeholder="Title" class="feedback-input" value="<%= currentTitle %>" required/>
+  <textarea name="blog" required class="feedback-input"  class="feedback-input" placeholder="Write..."><%= currentBlog %></textarea>
+
+  <input type="submit" value="Update Blog" />
+</form>
+
+
+
+  <%- include("partials/footer.ejs") %>

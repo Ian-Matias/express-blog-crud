@@ -1,0 +1,21 @@
+{
+  "name": "blog-web-app",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Ian",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^2.3.0",
+    "bootstrap": "^5.3.8",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "method-override": "^3.0.0",
+    "nodemon": "^3.1.14",
+    "path": "^0.12.7"
+  }
+}
