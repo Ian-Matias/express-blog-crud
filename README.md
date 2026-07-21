@@ -3,6 +3,9 @@ handled dynamic EJS rendering,
 fixed template‑string issues, 
 added confirmation flows, and debugged Express.
 
+Hosted on Render:
+https://express-blog-crud.onrender.com/
+
 Webapp running:
 <img width="1146" height="644" alt="image" src="https://github.com/user-attachments/assets/1282bc78-4396-447d-906d-64a229e3e7c8" />
 <img width="1146" height="644" alt="image" src="https://github.com/user-attachments/assets/6c9b5dda-e409-4f8f-a282-a220beaae34e" />
