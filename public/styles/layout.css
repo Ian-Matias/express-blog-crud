@@ -265,6 +265,19 @@ footer .wave#wave4 {
   animation: animateWave_02 3s linear infinite;
 }
 
+@media (max-width: 767px) {
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  footer {
+    margin-top: auto;
+  }
+}
+
+
 @keyframes animateWave {
   0% {
     background-position-x: 1000px;
