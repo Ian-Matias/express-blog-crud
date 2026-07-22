@@ -2,9 +2,23 @@
 
 
 <form action="/submit" method="POST">
-  <input name="title" type="text" class="feedback-input" placeholder="Title" class="feedback-input"/>
+  <input name="title" id="blog" type="text" class="feedback-input" placeholder="Title" class="feedback-input"/>
+
   <textarea name="blog" class="feedback-input"  class="feedback-input" placeholder="Write..."></textarea>
+
+  <div class="suggest-bottom-left">
+  <button type="button" id="suggestBtn" class="suggest-icon">
+    ✨
+    <span class="suggest-tooltip">Suggest a topic</span>
+  </button>
+</div>
+
+
+
   <input type="submit" value="SUBMIT" />
+
+
 </form>
 
   <%- include("partials/footer.ejs") %>
+

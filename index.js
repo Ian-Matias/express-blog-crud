@@ -11,6 +11,20 @@ import methodOverride from "method-override"; // Allows HTML forms to send PATCH
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Random subjects for the blog
+const randomSubjects = [
+  "The future of artificial intelligence",
+  "Why creativity matters in modern tech",
+  "Lessons learned from a recent challenge",
+  "A story about personal growth",
+  "How technology changes everyday life",
+  "The importance of consistency",
+  "A moment that changed your perspective",
+  "What motivates you to build things",
+  "Your favorite place and why it inspires you",
+  "A problem you solved recently"
+];
+
 // Initialize Express app
 const app = express();
 const port = process.env.PORT || 3000;
@@ -60,6 +74,11 @@ app.get('/', (req, res) => {
   });
 });
 
+// GET RANDOM SUBJECT
+app.get("/random-subject", (req, res) => {
+  const subject = randomSubjects[Math.floor(Math.random() * randomSubjects.length)];
+  res.send(subject);
+});
 
 
 // RENDER BLOG CREATION PAGE
@@ -182,10 +201,12 @@ app.patch("/blogs/:title", (req, res) => {
       `<h2 class="pb-2 border-bottom" id="h2-blog">${newTitle}</h2>`
     );
 
-    updatedContent = updatedContent.replace(
-      /<p>([\s\S]*?)<\/p>/,
-      `<p>${newBlogText}</p>`
-    );
+updatedContent = updatedContent.replace(
+  /<p[^>]*>[\s\S]*?<\/p>/,
+  `<p>${newBlogText}</p>`
+);
+
+
 
     updatedContent = updatedContent.replace(
       /<input type="hidden" name="title" value="([^"]*)">/,

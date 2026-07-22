@@ -107,3 +107,54 @@ ul {list-style-type: square;}
   .facts {grid-area: 2 / span 1;}
   .footer {grid-area: 3 / span 6;}
 }
+
+.suggest-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.suggest-bottom-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+/* Icon button */
+.suggest-icon {
+  position: relative;
+  background: #3586ff;
+  border: none;
+  color: white;
+  font-size: 22px;
+  padding: 10px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Tooltip text */
+.suggest-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 120%; /* above the icon */
+  left: 80%;
+  transform: translateX(-50%);
+  background: #3586ff;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Show tooltip on hover */
+.suggest-icon:hover .suggest-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
