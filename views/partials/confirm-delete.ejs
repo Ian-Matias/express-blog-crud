@@ -1,0 +1,29 @@
+<%- include("./header.ejs") %>
+
+<main>
+
+  <h1 class="delete-title">
+    <span class="typewriter">Delete Blog: <%= title %></span>
+  </h1>
+
+  <p class="delete-warning">
+    Are you sure you want to permanently delete this blog?
+  </p>
+
+  <form action="/blogs/<%= slug %>?_method=DELETE" method="POST" class="form-animate">
+    <button type="submit" class="delete-btn">Yes, delete</button>
+  </form>
+
+  <form action="/" method="GET" class="form-animate">
+    <button type="submit" class="cancel-btn">Cancel</button>
+  </form>
+
+</main>
+
+<%- include("./footer.ejs") %>
+
+<script>
+  document.querySelectorAll("h1").forEach(el => {
+    setTimeout(() => el.classList.add("appear"), 100);
+  });
+</script>

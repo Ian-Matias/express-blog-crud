@@ -1,24 +1,36 @@
 <%- include("partials/header.ejs") %>
 
+<form action="/submit" method="POST" class="form-animate">
+  <input
+    class="feedback-input"
+    type="text"
+      id="blog"
+    name="title"
+    placeholder="Title"
+  >
+  <textarea
+    class="feedback-input"
+    name="blog"
+    placeholder="Write your blog..."
+  ></textarea>
+  <input type="submit" value="Create Blog">
+</form>
 
-<form action="/submit" method="POST">
-  <input name="title" id="blog" type="text" class="feedback-input" placeholder="Title" class="feedback-input"/>
-
-  <textarea name="blog" class="feedback-input"  class="feedback-input" placeholder="Write..."></textarea>
-
-  <div class="suggest-bottom-left">
+<div class="suggest-bottom-left">
   <button type="button" id="suggestBtn" class="suggest-icon">
     ✨
     <span class="suggest-tooltip">Suggest a topic</span>
   </button>
 </div>
 
+<script>
+document.getElementById("suggestBtn").addEventListener("click", async () => {
+  const response = await fetch("/random-subject");
+  const subject = await response.text();
+  document.getElementById("blog").value = subject;
+});
+</script>
 
-
-  <input type="submit" value="SUBMIT" />
-
-
-</form>
 
   <%- include("partials/footer.ejs") %>
 

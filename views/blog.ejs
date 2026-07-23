@@ -1,0 +1,21 @@
+<%- include("partials/header") %>
+
+<main>
+  <h2 class="blog-title"><%= blog.title %></h2>
+
+  <div class="blog-content">
+    <p><%= blog.content %></p>
+  </div>
+
+  <form action="/edit" method="GET">
+    <input type="hidden" name="slug" value="<%= blog.slug %>">
+    <button type="submit">Edit Blog</button>
+  </form>
+
+<form action="/blogs/<%= blog.slug %>/confirm-delete" method="GET">
+  <button type="submit" style="color:red;">Delete Blog</button>
+</form>
+
+</main>
+
+<%- include("partials/footer") %>

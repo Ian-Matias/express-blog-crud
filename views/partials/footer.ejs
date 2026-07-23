@@ -16,11 +16,21 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById("suggestBtn").addEventListener("click", async () => {
-  const response = await fetch("/random-subject");
-  const subject = await response.text();
-  document.getElementById("blog").value = subject;
+document.querySelectorAll("h1, #h2-blog").forEach(el => {
+  setTimeout(() => el.classList.add("appear"), 100);
 });
+</script>
+<script>
+document.querySelectorAll("h1, #h2-blog").forEach(el => {
+  setTimeout(() => el.classList.add("appear"), 100);
+});
+</script>
+<script>
+setTimeout(() => {
+  document.querySelectorAll(".form-animate").forEach(el => {
+    el.style.animationDelay = "0s";
+  });
+}, 100);
 </script>
 
 

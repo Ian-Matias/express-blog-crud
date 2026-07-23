@@ -16,11 +16,87 @@ body {
   padding: 0;
 }
 
+/* Typewriter container */
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #3586ff;
+  animation: typing 2s steps(30), blink 0.7s step-end infinite;
+}
+
+/* Typing animation */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: #3586ff; }
+}
+
+/* Hover effect: brighten underline + cursor */
+h1:hover::after,
+#h2-blog:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1.15);
+}
+
+h1:hover .typewriter,
+#h2-blog:hover .typewriter {
+  border-right-color: #1f6ae0;
+}
 
 
+h1,
 #h2-blog {
   text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
+  overflow: hidden; /* ensures animation stays clean */
 }
+
+
+
+/* Underline element */
+h1::after,
+#h2-blog::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0); /* start invisible */
+  width: 60px;
+  height: 3px;
+  background-color: #3586ff;
+  border-radius: 3px;
+  opacity: 0;
+  transition:
+    transform 0.4s ease-out,
+    opacity 0.4s ease-out;
+}
+
+/* Slide-in + fade-in on load */
+h1.appear::after,
+#h2-blog.appear::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 0.8;
+}
+
+/* Hover effect: brighten + slight grow */
+h1:hover::after,
+#h2-blog:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1.15);
+}
+
+
 
 header{
   flex: 0 0 auto;
@@ -35,9 +111,6 @@ main {
   flex: 1 0 auto;
 }
 
-h1 {
-  text-align: center;
-}
 
 p {
   color: grey;
@@ -157,4 +230,207 @@ ul {list-style-type: square;}
 .suggest-icon:hover .suggest-tooltip {
   visibility: visible;
   opacity: 1;
+}
+
+
+/* Form entrance animation */
+.form-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: formFadeIn 0.6s ease-out forwards;
+}
+
+/* Keyframes */
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effect: soft lift */
+.form-animate:hover {
+  transform: translateY(-3px);
+  transition: transform 0.2s ease-out;
+}
+
+.blog-title {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #3586ff;
+  border-radius: 8px;
+  margin: 20px auto;
+  color: #333;
+  font-weight: 600;
+  position: relative;
+  animation: titleFadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes titleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-title:hover {
+  box-shadow: 0 0 10px rgba(53, 134, 255, 0.4);
+  transform: translateY(-3px);
+  transition: 0.2s ease-out;
+}
+
+.blog-content {
+  padding: 20px;
+  border: 2px solid #3586ff;
+  border-radius: 10px;
+  background: #f9f9f9;
+  color: #333;
+  margin: 20px auto;
+  max-width: 800px;
+  line-height: 1.6;
+  animation: contentFadeIn 0.7s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-content:hover {
+  box-shadow: 0 0 12px rgba(53, 134, 255, 0.3);
+  transform: translateY(-2px);
+  transition: 0.2s ease-out;
+}
+
+.delete-title {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+/* Underline animation */
+.delete-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60px;
+  height: 3px;
+  background-color: #3586ff;
+  border-radius: 3px;
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.delete-title.appear::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 0.8;
+}
+
+.delete-title:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scaleX(1.15);
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #3586ff;
+  animation: typing 2s steps(30), blink 0.7s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: #3586ff; }
+}
+
+.delete-warning {
+  text-align: center;
+  color: #555;
+  margin-bottom: 30px;
+  font-size: 1.1em;
+}
+
+.form-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: formFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-animate:hover {
+  transform: translateY(-3px);
+  transition: transform 0.2s ease-out;
+}
+
+.delete-btn {
+  width: 100%;
+  background: #ff3b3b;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 22px;
+  padding: 10px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background: #d62828;
+}
+
+.cancel-btn {
+  width: 100%;
+  background: #3586ff;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 22px;
+  padding: 10px;
+  font-weight: 700;
+  transition: 0.3s;
+  margin-top: 15px;
+}
+
+.cancel-btn:hover {
+  background: #1f6ae0;
 }
