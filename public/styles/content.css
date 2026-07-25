@@ -434,3 +434,31 @@ ul {list-style-type: square;}
 .cancel-btn:hover {
   background: #1f6ae0;
 }
+
+@media (max-width: 600px) {
+  .typewriter {
+    white-space: normal;
+    overflow: visible;
+  }
+}
+
+.navbar-toggler {
+  position: relative;
+  z-index: 9999;
+}
+
+.hori-selector-wrapper,
+.hori-selector {
+  pointer-events: none;   /* prevents overlay blocking clicks */
+}
+
+/* Smooth mobile menu animation */
+#navbarSupportedContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+#navbarSupportedContent.show {
+  max-height: 500px; /* enough for your menu */
+}
