@@ -37,10 +37,23 @@ app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
+
+const welcomeBlog = {
+  title: "Welcome Blog",
+  content: "This is your permanent welcome blog!",
+  slug: "welcome-blog",
+  permanent: true
+};
+
 // HOME PAGE — LIST ALL BLOGS
 app.get("/", (req, res) => {
   const blogs = loadBlogs();
-  res.render("index", { blogs });
+
+// Add welcome blog at the top
+const allBlogs = [welcomeBlog, ...blogs];
+
+res.render("index", { blogs: allBlogs });
+
 });
 
 // RENDER BLOG CREATION PAGE
@@ -66,12 +79,28 @@ app.post("/submit", (req, res) => {
 // RENDER A SPECIFIC BLOG PAGE
 app.get("/blogs/:slug", (req, res) => {
   const blogs = loadBlogs();
+
+  // Permanent welcome blog
+  const welcomeBlog = {
+    title: "Welcome Friends",
+    content: "You are free to write whatever you want here!",
+    slug: "welcome-blog",
+    permanent: true
+  };
+
+  // If slug matches welcome blog → return it
+  if (req.params.slug === "welcome-blog") {
+    return res.render("blog", { blog: welcomeBlog, isPermanent: true });
+  }
+
+  // Otherwise load from JSON
   const blog = blogs.find(b => b.slug === req.params.slug);
 
   if (!blog) return res.status(404).send("Blog not found");
 
-  res.render("blog", { blog });
+  res.render("blog", { blog, isPermanent: false });
 });
+
 
 // CONFIRM DELETE PAGE
 app.get("/blogs/:slug/confirm-delete", (req, res) => {

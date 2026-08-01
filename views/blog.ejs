@@ -7,14 +7,17 @@
     <p><%= blog.content %></p>
   </div>
 
+  <% if (!isPermanent) { %>
   <form action="/edit" method="GET">
     <input type="hidden" name="slug" value="<%= blog.slug %>">
     <button type="submit">Edit Blog</button>
   </form>
 
-<form action="/blogs/<%= blog.slug %>/confirm-delete" method="GET">
-  <button type="submit" style="color:red;">Delete Blog</button>
-</form>
+  <form action="/blogs/<%= blog.slug %>?_method=DELETE" method="POST">
+    <button type="submit" style="color:red;">Delete Blog</button>
+  </form>
+<% } %>
+
 
 </main>
 

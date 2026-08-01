@@ -19,10 +19,8 @@ i {
   background-color: #3586ff;
   padding: 0px;
 }
-#navbarSupportedContent {
-  overflow: hidden;
-  position: relative;
-}
+
+
 #navbarSupportedContent ul {
   padding: 0px;
   margin: 0px;
@@ -32,8 +30,8 @@ i {
 }
 #navbarSupportedContent li {
   list-style-type: none;
-  float: left;
 }
+
 #navbarSupportedContent ul li a {
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
@@ -43,6 +41,7 @@ i {
   transition-duration: 0.6s;
   transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: relative;
+  z-index: 1;
 }
 #navbarSupportedContent > ul > li.active > a {
   color: #3586ff;
@@ -65,6 +64,23 @@ i {
 #navbarSupportedContent .active > a:not(:only-child):after {
   transform: rotate(90deg);
 }
+
+/* Glow effect on hover */
+#navbarSupportedContent ul li a:hover {
+  color: #fff !important;                 /* turn text white */
+  text-shadow: 0 0 8px rgba(255,255,255,0.8),
+               0 0 12px rgba(255,255,255,0.6); /* soft glow */
+  transition: all 0.3s ease;
+}
+
+/* Glow effect for the brand button */
+.navbar-mainbg .navbar-brand:hover {
+  color: #fff !important;
+  text-shadow: 0 0 8px rgba(255,255,255,0.8),
+               0 0 12px rgba(255,255,255,0.6);
+  transition: all 0.3s ease;
+}
+
 .hori-selector {
   display: inline-block;
   position: absolute;
@@ -77,6 +93,8 @@ i {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   margin-top: 10px;
+  pointer-events: none;
+  z-index: 0;
 }
 .hori-selector .right,
 .hori-selector .left {
