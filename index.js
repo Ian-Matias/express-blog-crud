@@ -89,24 +89,18 @@ app.get("/blogs/:slug", (req, res) => {
     permanent: true
   };
 
+  // THIS MUST MATCH EXACTLY
   if (req.params.slug === "welcome-blog") {
-    return res.render("blogs/welcome", {
-      blog: welcomeBlog,
-      isPermanent: true,
-      currentPath: req.path
-    });
+    return res.render("blogs/welcome", { blog: welcomeBlog });
   }
 
   const blog = blogs.find(b => b.slug === req.params.slug);
 
   if (!blog) return res.status(404).send("Blog not found");
 
-  res.render("blog", {
-    blog,
-    isPermanent: false,
-    currentPath: req.path
-  });
+  res.render("blog", { blog });
 });
+
 
 
 
