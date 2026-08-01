@@ -82,7 +82,6 @@ saveBlogs(blogs);
 app.get("/blogs/:slug", (req, res) => {
   const blogs = loadBlogs();
 
-  // Permanent welcome blog
   const welcomeBlog = {
     title: "Welcome Blog",
     content: "You are free to write whatever you want here!",
@@ -90,18 +89,25 @@ app.get("/blogs/:slug", (req, res) => {
     permanent: true
   };
 
-  // If slug matches welcome blog → render correct file
   if (req.params.slug === "welcome-blog") {
-    return res.render("blogs/welcome", { blog: welcomeBlog });
+    return res.render("blogs/welcome", {
+      blog: welcomeBlog,
+      isPermanent: true,
+      currentPath: req.path
+    });
   }
 
-  // Otherwise load from JSON
   const blog = blogs.find(b => b.slug === req.params.slug);
 
   if (!blog) return res.status(404).send("Blog not found");
 
-  res.render("blog", { blog, isPermanent: false });
+  res.render("blog", {
+    blog,
+    isPermanent: false,
+    currentPath: req.path
+  });
 });
+
 
 
 
