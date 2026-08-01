@@ -5,6 +5,10 @@
 
   <div class="blog-content">
     <p><%= blog.content %></p>
+  <p style="margin-top:20px; font-style:italic; color:#555;">
+  Written by: <%= blog.author %>
+</p>
+
   </div>
 
   <% if (!isPermanent) { %>

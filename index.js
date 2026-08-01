@@ -65,13 +65,15 @@ app.get("/create", (req, res) => {
 app.post("/submit", (req, res) => {
   const blogs = loadBlogs();
 
-  const title = req.body.title;
-  const content = req.body.blog;
-  const slug = title.toLowerCase().trim().replace(/\s+/g, "-");
+ const title = req.body.title;
+const content = req.body.blog;
+const author = req.body.author;
+const slug = title.toLowerCase().trim().replace(/\s+/g, "-");
 
-  const newBlog = { title, content, slug };
-  blogs.push(newBlog);
-  saveBlogs(blogs);
+const newBlog = { title, content, author, slug };
+blogs.push(newBlog);
+saveBlogs(blogs);
+
 
   res.redirect("/");
 });
@@ -88,9 +90,9 @@ app.get("/blogs/:slug", (req, res) => {
     permanent: true
   };
 
-  // If slug matches welcome blog → return it
+  // If slug matches welcome blog → render welcome.ejs
   if (req.params.slug === "welcome-blog") {
-    return res.render("blog", { blog: welcomeBlog, isPermanent: true });
+    return res.render("blogs/welcome", { blog: welcomeBlog });
   }
 
   // Otherwise load from JSON
@@ -100,6 +102,7 @@ app.get("/blogs/:slug", (req, res) => {
 
   res.render("blog", { blog, isPermanent: false });
 });
+
 
 
 // CONFIRM DELETE PAGE
