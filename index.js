@@ -84,13 +84,13 @@ app.get("/blogs/:slug", (req, res) => {
 
   // Permanent welcome blog
   const welcomeBlog = {
-    title: "Welcome Friends",
+    title: "Welcome Blog",
     content: "You are free to write whatever you want here!",
     slug: "welcome-blog",
     permanent: true
   };
 
-  // If slug matches welcome blog → render welcome.ejs
+  // If slug matches welcome blog → render correct file
   if (req.params.slug === "welcome-blog") {
     return res.render("blogs/welcome", { blog: welcomeBlog });
   }
